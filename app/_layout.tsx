@@ -27,7 +27,9 @@ const RootLayout = () => {
   return (
     <PaperProvider>
       <KeyboardProvider>
-        <Stack />
+        <Stack>
+          <Stack.Screen name="index" />
+        </Stack>
       </KeyboardProvider>
     </PaperProvider>
   );
