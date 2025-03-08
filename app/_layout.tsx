@@ -5,6 +5,7 @@ import { useFonts } from "expo-font";
 import { PaperProvider } from "react-native-paper";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import React, { useEffect } from "react";
+import { SessionProvider } from "@/contexts/SessionContext";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete
 SplashScreen.preventAutoHideAsync();
@@ -27,9 +28,11 @@ const RootLayout = () => {
   return (
     <PaperProvider>
       <KeyboardProvider>
-        <Stack>
-          <Stack.Screen name="index" />
-        </Stack>
+        <SessionProvider>
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="index" />
+          </Stack>
+        </SessionProvider>
       </KeyboardProvider>
     </PaperProvider>
   );
