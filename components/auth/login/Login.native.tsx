@@ -19,7 +19,7 @@ const Login = () => {
   const { saveCodeVerifier, saveAuthTokens } = useSession();
   const redirectUri = makeRedirectUri({
     scheme: "securidine",
-    path: "login/callback",
+    path: "login",
   });
   const discoveryDocument = useMemo(
     () => ({
