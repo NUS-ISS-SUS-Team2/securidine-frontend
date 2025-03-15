@@ -1,12 +1,7 @@
-import Login from "@/components/Login";
-import { View } from "react-native";
+import { Redirect } from "expo-router";
 
 const Index = () => {
-  return (
-    <View>
-      <Login />
-    </View>
-  );
-}
+  return <Redirect href="/login" />;
+};
 
 export default Index;

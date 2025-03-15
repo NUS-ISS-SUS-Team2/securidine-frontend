@@ -1,8 +1,8 @@
 import { useStorageState } from "@/hooks/useStorageState";
 import { TokenResponse } from "expo-auth-session";
-import { createContext, PropsWithChildren, useContext } from "react";
+import { createContext, PropsWithChildren, useContext, useMemo } from "react";
 
-const SessionContext = createContext({});
+const SessionContext = createContext({} as any);
 
 /***
  * Custom hook to access the authentication state and session information
@@ -16,6 +16,8 @@ export const useSession = () => {
 };
 
 export const SessionProvider = ({ children }: PropsWithChildren) => {
+  const [[isCodeVerifierLoading, codeVerifier], setCodeVerifier] =
+    useStorageState("codeVerifier");
   const [[isAccessTokenLoading, accessToken], setAccessToken] =
     useStorageState("accessToken");
   const [[isRefreshTokenLoading, refreshToken], setRefreshToken] =
@@ -24,6 +26,7 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
 
   // Extract auth tokens from TokenResponse and save them to storage
   const saveAuthTokens = (tokenResponse: TokenResponse) => {
+    console.log("tokenResponse: ", tokenResponse);
     if (
       tokenResponse?.accessToken &&
       tokenResponse?.refreshToken &&
@@ -41,13 +44,26 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
     setIdToken(null);
   };
 
+  const saveCodeVerifier = (codeVerifier: string) => {
+    setCodeVerifier(codeVerifier);
+  };
+
+  const getCodeVerifier = () => {
+    return codeVerifier;
+  };
+
   return (
     <SessionContext.Provider
       value={{
         saveAuthTokens,
         clearAuthTokens,
+        saveCodeVerifier,
+        getCodeVerifier,
         isLoading:
-          isAccessTokenLoading || isRefreshTokenLoading || isIdTokenLoading,
+          isAccessTokenLoading ||
+          isRefreshTokenLoading ||
+          isIdTokenLoading ||
+          isCodeVerifierLoading,
         isAuthenticated: accessToken && refreshToken && idToken,
       }}
     >
