@@ -64,7 +64,11 @@ const Login = () => {
   };
 
   return (
-    <Button mode="contained" onPress={() => redirectToAuthorizeEndpoint()}>
+    <Button
+      mode="contained"
+      disabled={!request}
+      onPress={() => redirectToAuthorizeEndpoint()}
+    >
       Sign in
     </Button>
   );
