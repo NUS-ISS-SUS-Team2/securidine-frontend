@@ -12,9 +12,11 @@ import {
 
 WebBrowser.maybeCompleteAuthSession();
 
+// Web-only
 const LoginCallbackScreen = () => {
-  const { getCodeVerifier, saveAuthTokens, isAuthenticated } = useSession();
+  const { getCodeVerifier, saveAuthTokens, getIsAuthenticated } = useSession();
   const codeVerifier = getCodeVerifier();
+  const isAuthenticated = getIsAuthenticated();
   const params = useLocalSearchParams();
   const redirectUri = makeRedirectUri({
     scheme: "securidine",
@@ -37,7 +39,7 @@ const LoginCallbackScreen = () => {
         exchangeTokenReq,
         discoveryDocument
       );
-      console.log("exchangeTokenResponse: ", exchangeTokenResponse);
+      console.log("[exchangeFn] exchangeTokenResponse: ", exchangeTokenResponse);
       saveAuthTokens(exchangeTokenResponse);
     } catch (error) {
       console.error(error);
