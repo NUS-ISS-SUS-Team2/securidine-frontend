@@ -2,6 +2,15 @@ import { useStorageState } from "@/hooks/useStorageState";
 import { TokenResponse } from "expo-auth-session";
 import { createContext, PropsWithChildren, useContext } from "react";
 
+type SessionContextType = {
+  saveAuthTokens: (tokenResponse: TokenResponse) => void;
+  clearAuthTokens: () => void;
+  saveCodeVerifier: (codeVerifier: string) => void;
+  getCodeVerifier: () => string | null;
+  getIsLoading: () => boolean;
+  getIsAuthenticated: () => boolean;
+};
+
 const SessionContext = createContext({
   saveAuthTokens: () => {},
   clearAuthTokens: () => {},
@@ -9,7 +18,7 @@ const SessionContext = createContext({
   getCodeVerifier: () => "",
   getIsLoading: () => false,
   getIsAuthenticated: () => false,
-} as any);
+} as SessionContextType);
 
 /***
  * Custom hook to access the authentication state and session information
