@@ -16,7 +16,7 @@ import { Button } from "react-native-paper";
 WebBrowser.maybeCompleteAuthSession();
 
 const Login = () => {
-  const { saveCodeVerifier, saveAuthTokens } = useSession();
+  const { saveAuthTokens } = useSession();
   const redirectUri = makeRedirectUri({
     scheme: "securidine",
     path: "login",
@@ -45,20 +45,6 @@ const Login = () => {
     config,
     discoveryDocument
   );
-
-  const redirectToAuthorizeEndpoint = () => {
-    if (!request) {
-      return;
-    }
-
-    console.log("request: ", request);
-    if (request.codeVerifier) {
-      console.log("codeVerifier in request: ", request.codeVerifier);
-      saveCodeVerifier(request.codeVerifier);
-    }
-
-    promptAsync();
-  };
 
   const exchangeFn = async (exchangeTokenReq: AccessTokenRequestConfig) => {
     try {
