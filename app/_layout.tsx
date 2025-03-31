@@ -32,9 +32,9 @@ const InitialLayout = () => {
     if (!isAuthenticated && segments[0] !== "login") {
       console.log("[InitialLayout] Redirecting to /login");
       router.replace("/login");
-    } else if (isAuthenticated && segments[0] !== "home") {
-      console.log("[InitialLayout] Redirecting to /home");
-      router.replace("/home");
+    } else if (isAuthenticated && segments[0] !== "(tabs)") {
+      console.log("[InitialLayout] Redirecting to /(tabs)/home");
+      router.replace("/(tabs)/home");
     }
   }, [loaded, getIsAuthenticated]);
 
