@@ -4,6 +4,11 @@ import { createContext, PropsWithChildren, useContext } from "react";
 
 type SessionContextType = {
   saveAuthTokens: (tokenResponse: TokenResponse) => void;
+  getAuthTokens: () => {
+    accessToken: string | null;
+    refreshToken: string | null;
+    idToken: string | null;
+  };
   clearAuthTokens: () => void;
   saveCodeVerifier: (codeVerifier: string) => void;
   getCodeVerifier: () => string | null;
@@ -13,6 +18,11 @@ type SessionContextType = {
 
 const SessionContext = createContext({
   saveAuthTokens: () => {},
+  getAuthTokens: () => ({
+    accessToken: null,
+    refreshToken: null,
+    idToken: null,
+  }),
   clearAuthTokens: () => {},
   saveCodeVerifier: () => {},
   getCodeVerifier: () => "",
@@ -54,7 +64,16 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
+  const getAuthTokens = () => {
+    return {
+      accessToken,
+      refreshToken,
+      idToken,
+    };
+  };
+
   const clearAuthTokens = () => {
+    console.log("[clearAuthTokens] clearing auth tokens");
     setAccessToken(null);
     setRefreshToken(null);
     setIdToken(null);
@@ -85,6 +104,7 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
     <SessionContext.Provider
       value={{
         saveAuthTokens,
+        getAuthTokens,
         clearAuthTokens,
         saveCodeVerifier,
         getCodeVerifier,

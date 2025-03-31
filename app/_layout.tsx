@@ -29,7 +29,9 @@ const InitialLayout = () => {
     console.log("[InitialLayout] isAuthenticated: ", isAuthenticated);
     console.log("[InitialLayout] segments: ", segments);
 
-    if (!isAuthenticated && segments[0] !== "login") {
+    if (segments[0] === "logout") {
+      console.log("[InitialLayout] /logout");
+    } else if (!isAuthenticated && segments[0] !== "login") {
       console.log("[InitialLayout] Redirecting to /login");
       router.replace("/login");
     } else if (isAuthenticated && segments[0] !== "(tabs)") {
