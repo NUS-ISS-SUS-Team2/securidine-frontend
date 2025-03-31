@@ -1,4 +1,4 @@
-import { Config } from "@/constants/Config";
+import { Config, DiscoveryDocument } from "@/constants/Config";
 import { useSession } from "@/contexts/SessionContext";
 import {
   AccessTokenRequestConfig,
@@ -10,7 +10,7 @@ import {
   useAuthRequest,
 } from "expo-auth-session";
 import * as WebBrowser from "expo-web-browser";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { Button } from "react-native-paper";
 
 WebBrowser.maybeCompleteAuthSession();
@@ -21,16 +21,6 @@ const Login = () => {
     scheme: "securidine",
     path: "login",
   });
-  const discoveryDocument = useMemo(
-    () => ({
-      authorizationEndpoint: Config.userPoolUrl + "/oauth2/authorize",
-      tokenEndpoint: Config.userPoolUrl + "/oauth2/token",
-      revocationEndpoint: Config.userPoolUrl + "/oauth2/revoke",
-      userInfoEndpoint: Config.userPoolUrl + "/oauth2/userInfo",
-      endSessionEndpoint: Config.userPoolUrl + "/logout",
-    }),
-    []
-  );
 
   const config: AuthRequestConfig = {
     clientId: Config.clientId,
@@ -43,14 +33,14 @@ const Login = () => {
 
   const [request, response, promptAsync] = useAuthRequest(
     config,
-    discoveryDocument
+    DiscoveryDocument
   );
 
   const exchangeFn = async (exchangeTokenReq: AccessTokenRequestConfig) => {
     try {
       const exchangeTokenResponse = await exchangeCodeAsync(
         exchangeTokenReq,
-        discoveryDocument
+        DiscoveryDocument
       );
       saveAuthTokens(exchangeTokenResponse);
     } catch (error) {
@@ -78,7 +68,7 @@ const Login = () => {
         },
       });
     }
-  }, [discoveryDocument, request, response]);
+  }, [DiscoveryDocument, request, response]);
 
   return (
     <Button

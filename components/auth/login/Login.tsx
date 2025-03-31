@@ -1,6 +1,5 @@
 import * as WebBrowser from "expo-web-browser";
-import { useMemo } from "react";
-import { Config } from "@/constants/Config";
+import { Config, DiscoveryDocument } from "@/constants/Config";
 import {
   AuthRequestConfig,
   CodeChallengeMethod,
@@ -20,17 +19,6 @@ const Login = () => {
     path: "login/callback",
   });
 
-  const discoveryDocument = useMemo(
-    () => ({
-      authorizationEndpoint: Config.userPoolUrl + "/oauth2/authorize",
-      tokenEndpoint: Config.userPoolUrl + "/oauth2/token",
-      revocationEndpoint: Config.userPoolUrl + "/oauth2/revoke",
-      userInfoEndpoint: Config.userPoolUrl + "/oauth2/userInfo",
-      endSessionEndpoint: Config.userPoolUrl + "/logout",
-    }),
-    []
-  );
-
   const config: AuthRequestConfig = {
     clientId: Config.clientId,
     scopes: ["openid", "email", "profile", "phone"],
@@ -40,14 +28,14 @@ const Login = () => {
     usePKCE: true,
   };
 
-  const [request] = useAuthRequest(config, discoveryDocument);
+  const [request] = useAuthRequest(config, DiscoveryDocument);
 
   const redirectToAuthorizeEndpoint = async () => {
     if (!request) {
       return;
     }
 
-    const authUrl = await request.makeAuthUrlAsync(discoveryDocument);
+    const authUrl = await request.makeAuthUrlAsync(DiscoveryDocument);
     console.log("authUrl: ", authUrl);
     console.log("request: ", request);
 
