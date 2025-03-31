@@ -15,6 +15,7 @@ const TabsLayout = () => {
         name="home"
         options={{
           headerTitle: "Home",
+          headerShown: Platform.OS !== "web",
           tabBarLabel: "Home",
           tabBarIcon: ({ color }) => (
             <Ionicons name="home" size={24} color={color} />
@@ -25,6 +26,7 @@ const TabsLayout = () => {
         name="orders"
         options={{
           headerTitle: "Orders",
+          headerShown: Platform.OS !== "web",
           tabBarLabel: "Orders",
           tabBarIcon: ({ color }) => (
             <Ionicons name="list" size={24} color={color} />
@@ -35,6 +37,7 @@ const TabsLayout = () => {
         name="account"
         options={{
           headerTitle: "Account",
+          headerShown: Platform.OS !== "web",
           tabBarLabel: "Account",
           tabBarIcon: ({ color }) => (
             <Ionicons name="person" size={24} color={color} />
