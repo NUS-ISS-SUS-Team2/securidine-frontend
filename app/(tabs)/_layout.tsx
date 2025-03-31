@@ -1,9 +1,16 @@
 import { Tabs } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { Platform } from "react-native";
 
 const TabsLayout = () => {
   return (
-    <Tabs>
+    <Tabs
+      screenOptions={{
+        tabBarPosition: Platform.OS === "web" ? "left" : "bottom",
+        tabBarVariant: Platform.OS === "web" ? "material" : "uikit",
+        tabBarLabelPosition: "below-icon",
+      }}
+    >
       <Tabs.Screen
         name="home"
         options={{
