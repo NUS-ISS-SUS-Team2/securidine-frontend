@@ -1,8 +1,7 @@
-import { View, Text } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import { useLocalSearchParams } from "expo-router";
-import { useEffect, useMemo } from "react";
-import { Config } from "@/constants/Config";
+import { useEffect } from "react";
+import { Config, DiscoveryDocument } from "@/constants/Config";
 import { useSession } from "@/contexts/SessionContext";
 import {
   AccessTokenRequestConfig,
@@ -22,24 +21,17 @@ const LoginCallbackScreen = () => {
     scheme: "securidine",
     path: "login/callback",
   });
-  const discoveryDocument = useMemo(
-    () => ({
-      authorizationEndpoint: Config.userPoolUrl + "/oauth2/authorize",
-      tokenEndpoint: Config.userPoolUrl + "/oauth2/token",
-      revocationEndpoint: Config.userPoolUrl + "/oauth2/revoke",
-      userInfoEndpoint: Config.userPoolUrl + "/oauth2/userInfo",
-      endSessionEndpoint: Config.userPoolUrl + "/logout",
-    }),
-    []
-  );
 
   const exchangeFn = async (exchangeTokenReq: AccessTokenRequestConfig) => {
     try {
       const exchangeTokenResponse = await exchangeCodeAsync(
         exchangeTokenReq,
-        discoveryDocument
+        DiscoveryDocument
       );
-      console.log("[exchangeFn] exchangeTokenResponse: ", exchangeTokenResponse);
+      console.log(
+        "[exchangeFn] exchangeTokenResponse: ",
+        exchangeTokenResponse
+      );
       saveAuthTokens(exchangeTokenResponse);
     } catch (error) {
       console.error(error);
