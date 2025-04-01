@@ -59,11 +59,7 @@ const LoginCallbackScreen = () => {
     }
   }, [params]);
 
-  return (
-    <View>
-      <Text>Login callback page</Text>
-    </View>
-  );
+  return null;
 };
 
 export default LoginCallbackScreen;
