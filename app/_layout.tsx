@@ -10,6 +10,8 @@ import { KeyboardProvider } from "react-native-keyboard-controller";
 import React, { useEffect } from "react";
 import { SessionProvider, useSession } from "@/contexts/SessionContext";
 import { Platform } from "react-native";
+import { Provider as StoreProvider } from "react-redux";
+import store from "@/store/store";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete
 SplashScreen.preventAutoHideAsync();
@@ -64,21 +66,23 @@ const InitialLayout = () => {
 
 const RootLayout = () => {
   return (
-    <PaperProvider theme={theme}>
-      {Platform.OS === "web" ? (
-        <style type="text/css">{`
-        @font-face {
-          font-family: 'MaterialCommunityIcons';
-          src: url(${require("react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf")}) format('truetype');
-        }
-      `}</style>
-      ) : null}
-      <KeyboardProvider>
-        <SessionProvider>
-          <InitialLayout />
-        </SessionProvider>
-      </KeyboardProvider>
-    </PaperProvider>
+    <StoreProvider store={store}>
+      <PaperProvider theme={theme}>
+        {Platform.OS === "web" ? (
+          <style type="text/css">{`
+          @font-face {
+            font-family: 'MaterialCommunityIcons';
+            src: url(${require("react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf")}) format('truetype');
+            }
+            `}</style>
+        ) : null}
+        <KeyboardProvider>
+          <SessionProvider>
+            <InitialLayout />
+          </SessionProvider>
+        </KeyboardProvider>
+      </PaperProvider>
+    </StoreProvider>
   );
 };
 
