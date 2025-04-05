@@ -2,13 +2,24 @@ import "react-native-reanimated";
 import * as SplashScreen from "expo-splash-screen";
 import { Stack, useRouter, useSegments } from "expo-router";
 import { useFonts } from "expo-font";
-import { PaperProvider } from "react-native-paper";
+import {
+  MD3LightTheme as DefaultTheme,
+  PaperProvider,
+} from "react-native-paper";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import React, { useEffect } from "react";
 import { SessionProvider, useSession } from "@/contexts/SessionContext";
+import { Platform } from "react-native";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete
 SplashScreen.preventAutoHideAsync();
+
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+  },
+};
 
 const InitialLayout = () => {
   const [loaded] = useFonts({
@@ -53,7 +64,15 @@ const InitialLayout = () => {
 
 const RootLayout = () => {
   return (
-    <PaperProvider>
+    <PaperProvider theme={theme}>
+      {Platform.OS === "web" ? (
+        <style type="text/css">{`
+        @font-face {
+          font-family: 'MaterialCommunityIcons';
+          src: url(${require("react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf")}) format('truetype');
+        }
+      `}</style>
+      ) : null}
       <KeyboardProvider>
         <SessionProvider>
           <InitialLayout />
