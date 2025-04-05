@@ -1,5 +1,5 @@
 import { useStorageState } from "@/hooks/useStorageState";
-import { TokenResponse } from "expo-auth-session";
+import { TokenResponse, TokenResponseConfig } from "expo-auth-session";
 import { createContext, PropsWithChildren, useContext } from "react";
 
 type SessionContextType = {
@@ -14,6 +14,7 @@ type SessionContextType = {
   getCodeVerifier: () => string | null;
   getIsLoading: () => boolean;
   getIsAuthenticated: () => boolean;
+  saveTokenResponseConfig: (tokenResponseConfig: TokenResponseConfig) => void;
 };
 
 const SessionContext = createContext({
@@ -28,6 +29,7 @@ const SessionContext = createContext({
   getCodeVerifier: () => "",
   getIsLoading: () => false,
   getIsAuthenticated: () => false,
+  saveTokenResponseConfig: () => {},
 } as SessionContextType);
 
 /***
@@ -49,6 +51,7 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
   const [[isRefreshTokenLoading, refreshToken], setRefreshToken] =
     useStorageState("refreshToken");
   const [[isIdTokenLoading, idToken], setIdToken] = useStorageState("idToken");
+  const [[isTokenResponseConfigLoading, tokenResponseConfig], setTokenResponseConfig] = useStorageState("tokenResponseConfig");
 
   // Extract auth tokens from TokenResponse and save them to storage
   const saveAuthTokens = (tokenResponse: TokenResponse) => {
@@ -96,8 +99,15 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
       isAccessTokenLoading ||
       isRefreshTokenLoading ||
       isIdTokenLoading ||
-      isCodeVerifierLoading
+      isCodeVerifierLoading ||
+      isTokenResponseConfigLoading
     );
+  };
+
+  // Save token response config to storage
+  const saveTokenResponseConfig = (tokenResponseConfig: TokenResponseConfig) => {
+    console.log("[saveTokenResponseConfig] tokenResponseConfig: ", tokenResponseConfig);
+    setTokenResponseConfig(JSON.stringify(tokenResponseConfig));
   };
 
   return (
@@ -110,6 +120,7 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
         getCodeVerifier,
         getIsLoading,
         getIsAuthenticated,
+        saveTokenResponseConfig,
       }}
     >
       {children}

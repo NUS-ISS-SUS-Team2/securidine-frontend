@@ -13,7 +13,7 @@ WebBrowser.maybeCompleteAuthSession();
 
 // Web-only
 const LoginCallbackScreen = () => {
-  const { getCodeVerifier, saveAuthTokens, getIsAuthenticated } = useSession();
+  const { getCodeVerifier, saveAuthTokens, getIsAuthenticated, saveTokenResponseConfig } = useSession();
   const codeVerifier = getCodeVerifier();
   const isAuthenticated = getIsAuthenticated();
   const params = useLocalSearchParams();
@@ -32,6 +32,7 @@ const LoginCallbackScreen = () => {
         "[exchangeFn] exchangeTokenResponse: ",
         exchangeTokenResponse
       );
+      saveTokenResponseConfig(exchangeTokenResponse.getRequestConfig());
       saveAuthTokens(exchangeTokenResponse);
     } catch (error) {
       console.error(error);

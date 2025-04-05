@@ -16,7 +16,7 @@ import { Button } from "react-native-paper";
 WebBrowser.maybeCompleteAuthSession();
 
 const Login = () => {
-  const { saveAuthTokens } = useSession();
+  const { saveAuthTokens, saveTokenResponseConfig } = useSession();
   const redirectUri = makeRedirectUri({
     scheme: "securidine",
     path: "login",
@@ -42,6 +42,7 @@ const Login = () => {
         exchangeTokenReq,
         DiscoveryDocument
       );
+      saveTokenResponseConfig(exchangeTokenResponse.getRequestConfig());
       saveAuthTokens(exchangeTokenResponse);
     } catch (error) {
       console.error(error);
