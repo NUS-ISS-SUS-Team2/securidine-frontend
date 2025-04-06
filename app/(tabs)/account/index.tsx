@@ -7,6 +7,7 @@ import { Avatar, Card, Text } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as SplashScreen from "expo-splash-screen";
 import { getUserInfo } from "@/store/reducers/userReducer";
+import ActivityIndicatorView from "@/components/activityIndicator/ActivityIndicatorView";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -18,8 +19,8 @@ const AccountScreen = () => {
     dispatch(getUserInfo());
   }, []);
 
-  if (!loading) {
-    SplashScreen.hideAsync();
+  if (loading) {
+    return <ActivityIndicatorView />;
   }
 
   return (

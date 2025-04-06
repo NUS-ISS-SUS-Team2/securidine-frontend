@@ -1,3 +1,4 @@
+import ActivityIndicatorView from "@/components/activityIndicator/ActivityIndicatorView";
 import { getOrders } from "@/store/reducers/orderReducer";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { View } from "react-native";
@@ -12,10 +13,14 @@ const OrdersScreen = () => {
   const testGetOrders = () => {
     dispatch(getOrders()).then((response) => {
       if (response.meta.requestStatus === "rejected") {
-        Toast.error(error || "Failed to fetch orders");
+        Toast.error(error ?? "Failed to fetch orders");
       }
     });
   };
+
+  if (loading) {
+    return <ActivityIndicatorView />;
+  }
 
   return (
     <SafeAreaView>
