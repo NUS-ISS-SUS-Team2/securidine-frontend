@@ -6,7 +6,7 @@ interface UserState {
   name: string;
   email: string;
   loading: boolean;
-  error: string | null;
+  error: string | null | undefined;
 }
 
 const initialState: UserState = {
@@ -38,6 +38,7 @@ export const userSlice = createSlice({
       .addCase(getUserInfo.rejected, (state, action) => {
         console.log("Error fetching user info:", action);
         state.loading = false;
+        state.error = action.error.message;
       });
   },
 });
