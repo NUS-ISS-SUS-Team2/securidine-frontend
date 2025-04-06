@@ -1,14 +1,19 @@
-import axiosInstance from "@/utils/AxiosInstance";
-import { View, Text } from "react-native";
-import { Button } from "react-native-paper";
+import { getOrders } from "@/store/reducers/orderReducer";
+import { useAppDispatch, useAppSelector } from "@/store/store";
+import { View } from "react-native";
+import { Button, Text } from "react-native-paper";
+import ToastManager, { Toast } from "toastify-react-native";
 
 const OrdersScreen = () => {
+  const dispatch = useAppDispatch();
+  const { orders, loading, error } = useAppSelector((state) => state.order);
+
   const testGetOrders = () => {
-    axiosInstance
-      .get("https://api.nusiss-sus-project.online/prod/order/getAllOrders")
-      .then((response) => {
-        console.log("Response data:", response.data);
-      });
+    dispatch(getOrders()).then((response) => {
+      if (response.meta.requestStatus === "rejected") {
+        Toast.error(error || "Failed to fetch orders");
+      }
+    });
   };
 
   return (
@@ -17,6 +22,7 @@ const OrdersScreen = () => {
       <Button mode="contained" onPress={testGetOrders}>
         Test get orders
       </Button>
+      <ToastManager />
     </View>
   );
 };
