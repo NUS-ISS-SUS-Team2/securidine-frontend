@@ -1,23 +1,24 @@
 import ActivityIndicatorView from "@/components/activityIndicator/ActivityIndicatorView";
-import { getRestaurants } from "@/store/reducers/restaurantReducer";
+import { getMenuItems } from "@/store/reducers/restaurantReducer";
 import { useAppDispatch, useAppSelector } from "@/store/store";
-import { Link } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import { View, Text } from "react-native";
 import { Button } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Toast } from "toastify-react-native";
 import ToastManager from "toastify-react-native/components/ToastManager";
 
-const HomeScreen = () => {
+const RestaurantScreen = () => {
   const dispatch = useAppDispatch();
-  const { restaurants, loading, error } = useAppSelector(
+  const { restaurantId } = useLocalSearchParams();
+  const { menuItems, loading, error } = useAppSelector(
     (state) => state.restaurant
   );
 
-  const testGetRestaurants = () => {
-    dispatch(getRestaurants()).then((response) => {
+  const testGetMenuItems = () => {
+    dispatch(getMenuItems()).then((response) => {
       if (response.meta.requestStatus === "rejected") {
-        Toast.error(error ?? "Failed to fetch restaurants");
+        Toast.error(error ?? "Failed to fetch menu items");
       }
     });
   };
@@ -29,12 +30,13 @@ const HomeScreen = () => {
   return (
     <SafeAreaView>
       <View>
-        <Text>Home page</Text>
-        <Button mode="contained" onPress={testGetRestaurants}>
-          Test get restaurants
+        <Text>Restaurant {restaurantId} page</Text>
+        <Button mode="contained" onPress={testGetMenuItems}>
+          Test get menu items
         </Button>
-        <Link href="/restaurants/1" asChild>
-          <Button mode="outlined">View Restaurant 1</Button>
+        
+        <Link href="/home" asChild>
+          <Button mode="outlined">Back to Home</Button>
         </Link>
         <ToastManager />
       </View>
@@ -42,4 +44,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default RestaurantScreen;

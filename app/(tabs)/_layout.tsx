@@ -44,6 +44,13 @@ const TabsLayout = () => {
           ),
         }}
       />
+      <Tabs.Screen
+        name="restaurants"
+        options={{
+          headerShown: false,
+          href: null,
+        }}
+      />
     </Tabs>
   );
 };
