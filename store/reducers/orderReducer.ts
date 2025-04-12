@@ -1,8 +1,9 @@
+import { Order } from "@/models/order.model";
 import axiosInstance from "@/utils/AxiosInstance";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface OrderState {
-  orders: any[];
+  orders: Order[];
   loading: boolean;
   error: string | null | undefined;
 }

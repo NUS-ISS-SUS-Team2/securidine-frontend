@@ -1,9 +1,10 @@
+import { MenuItem, Restaurant } from "@/models/restaurant.model";
 import axiosInstance from "@/utils/AxiosInstance";
 import { createAsyncThunk, createSlice, isPending } from "@reduxjs/toolkit";
 
 interface RestaurantState {
-  restaurants: any[];
-  menuItems: any[];
+  restaurants: Restaurant[];
+  menuItems: MenuItem[];
   loading: boolean;
   error: string | null | undefined;
 }
