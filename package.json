@@ -11,7 +11,8 @@
     "ios": "npx expo run:ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "web-build": "npx expo export -p web"
   },
   "jest": {
     "preset": "jest-expo"
