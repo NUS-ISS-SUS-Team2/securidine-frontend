@@ -53,7 +53,7 @@ const Login = () => {
 
   return (
     <Button
-      mode="contained"
+      mode="outlined"
       disabled={!request}
       onPress={() => redirectToAuthorizeEndpoint()}
     >
