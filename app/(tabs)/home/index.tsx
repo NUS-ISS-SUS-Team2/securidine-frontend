@@ -51,7 +51,7 @@ const HomeScreen = () => {
           <Link href={`/restaurants/${restaurant.restaurantId}`} asChild>
             <Button mode="contained">View menu</Button>
           </Link>
-          </Card.Actions>
+        </Card.Actions>
       </Card>
     ));
   };
