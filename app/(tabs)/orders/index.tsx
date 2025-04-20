@@ -85,7 +85,7 @@ const OrdersScreen = () => {
           Test get orders
         </Button>
       </View>
-      <ToastManager />
+      <ToastManager useModal={true} />
     </SafeAreaView>
   );
 };

@@ -60,7 +60,7 @@ const AccountScreen = () => {
         </Card>
         <Logout />
       </View>
-      <ToastManager />
+      <ToastManager useModal={true} />
     </SafeAreaView>
   );
 };

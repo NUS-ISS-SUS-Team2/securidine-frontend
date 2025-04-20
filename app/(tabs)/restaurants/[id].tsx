@@ -114,7 +114,7 @@ const RestaurantScreen = () => {
           <Button mode="contained-tonal">Back to Home</Button>
         </Link>
       </View>
-      <ToastManager />
+      <ToastManager useModal={true} />
     </SafeAreaView>
   );
 };

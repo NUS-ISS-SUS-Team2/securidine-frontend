@@ -97,7 +97,7 @@ const HomeScreen = () => {
           Test get restaurants
         </Button>
       </View>
-      <ToastManager />
+      <ToastManager useModal={true} />
     </SafeAreaView>
   );
 };
