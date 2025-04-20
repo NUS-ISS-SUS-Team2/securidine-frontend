@@ -1,6 +1,9 @@
 import ActivityIndicatorView from "@/components/activityIndicator/ActivityIndicatorView";
 import { Restaurant } from "@/models/restaurant.model";
-import { getRestaurants } from "@/store/reducers/restaurantReducer";
+import {
+  getRestaurants,
+  setSelectedRestaurant,
+} from "@/store/reducers/restaurantReducer";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { getRestaurantCardCoverImage } from "@/utils/ImagePlaceholder";
 import { Link } from "expo-router";
@@ -40,7 +43,9 @@ const HomeScreen = () => {
       <Card style={styles.card} key={restaurant.restaurantId}>
         <Card.Title title={restaurant.name} />
         <Card.Content>
-          <Text variant="bodyMedium">{restaurant.location}</Text>
+          <Text style={{ marginBottom: 8 }} variant="bodyMedium">
+            {restaurant.location}
+          </Text>
         </Card.Content>
         <Card.Cover
           source={{
@@ -49,7 +54,12 @@ const HomeScreen = () => {
         />
         <Card.Actions>
           <Link href={`/restaurants/${restaurant.restaurantId}`} asChild>
-            <Button mode="contained">View menu</Button>
+            <Button
+              mode="contained"
+              onPress={() => dispatch(setSelectedRestaurant(restaurant))}
+            >
+              View menu
+            </Button>
           </Link>
         </Card.Actions>
       </Card>
@@ -80,9 +90,9 @@ const HomeScreen = () => {
           value={searchQuery}
         />
 
-        <ScrollView>{renderRestaurantCards(filteredRestaurants)}</ScrollView>
+        <ScrollView style={{marginBottom: 8}}>{renderRestaurantCards(filteredRestaurants)}</ScrollView>
 
-        <Button mode="contained" onPress={testGetRestaurants}>
+        <Button mode="elevated" onPress={testGetRestaurants}>
           Test get restaurants
         </Button>
         <ToastManager />

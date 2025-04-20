@@ -4,6 +4,7 @@ import { createAsyncThunk, createSlice, isPending } from "@reduxjs/toolkit";
 
 interface RestaurantState {
   restaurants: Restaurant[];
+  selectedRestaurant: Restaurant | null;
   menuItems: MenuItem[];
   loading: boolean;
   error: string | null | undefined;
@@ -11,6 +12,7 @@ interface RestaurantState {
 
 const initialState: RestaurantState = {
   restaurants: [],
+  selectedRestaurant: null,
   menuItems: [],
   loading: false,
   error: null,
@@ -33,7 +35,11 @@ export const getMenuItems = createAsyncThunk("restaurant/getMenuItems", async ()
 export const restaurantSlice = createSlice({
   name: "restaurant",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    setSelectedRestaurant: (state, action) => {
+      state.selectedRestaurant = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getRestaurants.fulfilled, (state, action) => {
@@ -59,5 +65,7 @@ export const restaurantSlice = createSlice({
       });
   },
 });
+
+export const { setSelectedRestaurant } = restaurantSlice.actions;
 
 export default restaurantSlice.reducer;
