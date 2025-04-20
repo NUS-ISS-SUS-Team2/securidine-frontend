@@ -12,7 +12,8 @@ const OrdersScreen = () => {
   const dispatch = useAppDispatch();
   const { orders, loading, error } = useAppSelector((state) => state.order);
   const [page, setPage] = useState(0);
-  const itemsPerPage = 10;
+  const numberOfItemsPerPageList = [5, 10, 15, 20];
+  const [itemsPerPage, setItemsPerPage] = useState(numberOfItemsPerPageList[0]);
 
   const from = page * itemsPerPage;
   const to = Math.min((page + 1) * itemsPerPage, orders.length);
@@ -73,7 +74,11 @@ const OrdersScreen = () => {
             label={`Page ${page + 1} of ${Math.ceil(
               orders.length / itemsPerPage
             )}`}
+            numberOfItemsPerPageList={numberOfItemsPerPageList}
             numberOfItemsPerPage={itemsPerPage}
+            onItemsPerPageChange={setItemsPerPage}
+            selectPageDropdownLabel={"Rows per page"}
+            showFastPaginationControls
           />
         </DataTable>
         <Button mode="elevated" onPress={testGetOrders}>
