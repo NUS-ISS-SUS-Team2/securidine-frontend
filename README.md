@@ -1,8 +1,10 @@
-# Welcome to your Expo app 👋
+# Securidine Frontend
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-## Get started
+You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+
+## Get started (Web)
 
 1. Install dependencies
 
@@ -13,8 +15,10 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 2. Start the app
 
    ```bash
-    npx expo start
+    npm run web
    ```
+
+3. Switch from Expo Go to Development Build in terminal by entering 'S' key
 
 In the output, you'll find options to open the app in a
 
@@ -23,7 +27,30 @@ In the output, you'll find options to open the app in a
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Get started (Mobile)
+
+1. Install dependencies
+
+   ```bash
+   npm install
+   ```
+
+2. Prebuild app for mobile
+
+   ```bash
+   npm run prebuild
+   ```
+
+3. Start the mobile app. Ensure either Android Studio or iOS simulator is installed 
+
+   ```bash
+    # For iOS app
+    npm run ios
+
+    # For Android app
+    npm run android 
+   ```
+
 
 ## Get a fresh project
 
