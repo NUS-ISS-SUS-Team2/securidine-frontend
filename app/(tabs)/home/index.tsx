@@ -11,8 +11,7 @@ import { useEffect, useState } from "react";
 import { View, StyleSheet, Platform, ScrollView } from "react-native";
 import { Button, Card, Searchbar, Text } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Toast } from "toastify-react-native";
-import ToastManager from "toastify-react-native/components/ToastManager";
+import ToastManager, { Toast } from "toastify-react-native";
 
 const HomeScreen = () => {
   const dispatch = useAppDispatch();
@@ -90,13 +89,15 @@ const HomeScreen = () => {
           value={searchQuery}
         />
 
-        <ScrollView style={{marginBottom: 8}}>{renderRestaurantCards(filteredRestaurants)}</ScrollView>
+        <ScrollView style={{ marginBottom: 8 }}>
+          {renderRestaurantCards(filteredRestaurants)}
+        </ScrollView>
 
         <Button mode="elevated" onPress={testGetRestaurants}>
           Test get restaurants
         </Button>
-        <ToastManager />
       </View>
+      <ToastManager />
     </SafeAreaView>
   );
 };

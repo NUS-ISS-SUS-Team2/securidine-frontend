@@ -8,8 +8,7 @@ import { useEffect, useState } from "react";
 import { View, StyleSheet, Platform, ScrollView } from "react-native";
 import { Button, Card, Searchbar, Text } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Toast } from "toastify-react-native";
-import ToastManager from "toastify-react-native/components/ToastManager";
+import ToastManager, { Toast } from "toastify-react-native";
 
 const RestaurantScreen = () => {
   const dispatch = useAppDispatch();

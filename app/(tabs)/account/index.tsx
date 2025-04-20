@@ -8,6 +8,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import * as SplashScreen from "expo-splash-screen";
 import { getUserInfo } from "@/store/reducers/userReducer";
 import ActivityIndicatorView from "@/components/activityIndicator/ActivityIndicatorView";
+import ToastManager, { Toast } from "toastify-react-native";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -16,7 +17,11 @@ const AccountScreen = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getUserInfo());
+    dispatch(getUserInfo()).then((response) => {
+      if (response.meta.requestStatus === "rejected") {
+        Toast.error("Failed to fetch user info");
+      }
+    });
   }, []);
 
   if (loading) {
@@ -55,6 +60,7 @@ const AccountScreen = () => {
         </Card>
         <Logout />
       </View>
+      <ToastManager />
     </SafeAreaView>
   );
 };

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Platform, View, StyleSheet } from "react-native";
 import { Button, DataTable, Text } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Toast } from "toastify-react-native";
+import ToastManager, { Toast } from "toastify-react-native";
 
 const OrdersScreen = () => {
   const dispatch = useAppDispatch();
@@ -85,6 +85,7 @@ const OrdersScreen = () => {
           Test get orders
         </Button>
       </View>
+      <ToastManager />
     </SafeAreaView>
   );
 };
