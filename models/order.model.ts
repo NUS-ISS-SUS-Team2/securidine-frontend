@@ -1,5 +1,5 @@
 export interface Order {
-  OrderId: string;
+  orderId: string;
   customerName: string;
   deliveryAddress: string;
   orderDate: string;
